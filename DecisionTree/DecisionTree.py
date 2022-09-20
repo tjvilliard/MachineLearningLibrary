@@ -3,7 +3,7 @@ import numpy as np
 
 def entropy(y):
     # get unique labels
-    labels = np.unique(y)
+    labels = np.unique(y[:])
 
     # sum over entropy given proportion of label to data
     ent = 0
@@ -12,32 +12,58 @@ def entropy(y):
         ent += -plabel * np.log2(plabel)
     return ent
 
+def majority(y):
+    # labels
+    labels = np.unique(y)
+
 
 def split_data(x, col_number):
     splits = {}
     vals = np.unique(x[:, col_number])
     for val in vals:
-        splits[val] = np.array([row for row in x if row[col_number] == val])
+        subset = np.array([row for row in x if row[col_number] == val])
+        # dont track empty subsets
+        if len(subset) > 0:
+            splits[val] = subset
     return splits
 
 
 class Node:
-    def __init__(self, data=None, split_idx=0, children=None, info_gain=-1):
+    def __init__(self, data=None, split_idx=0, children=None, info_gain=-1, is_leaf=False):
         self.data = data
         self.split_idx = split_idx
         self.children = children
         self.info_gain = info_gain
+        self.is_leaf = is_leaf
 
 
 class DecisionTree:
-    def __init__(self, min_samples=2, max_depth=2):
-        self.root = None
-
+    def __init__(self, data, min_samples=2, max_depth=2):
         self.min_samples = min_samples
         self.max_depth = max_depth
 
+        self.root = self.build_tree(data)
+
     def build_tree(self, data, depth=0):
-        return
+        # check the shape of the data to get the size of data
+        x, y = data[:, :-1], data[:, -1]
+        num_samples, num_attrs = x.shape()
+
+        if depth <= self.max_depth or num_samples > self.min_samples:
+            split_node = self.find_best_split(data)
+
+            if split_node.info_gain > 0:
+                # if split_node has no children
+                if len(split_node.children) == 0:
+                    split_node.is_leaf = True
+                    return split_node
+                #
+                for key in split_node.children.keys():
+                    # replace the child data set with child tree
+                    split_node.children[key] = self.build_tree(split_node.children[key], depth+1)
+
+        # if stopping conditions met, continues here
+        return Node(data=data, is_leaf=True)
 
     def find_best_split(self, data):
         ###### so not sure about this node return procedure

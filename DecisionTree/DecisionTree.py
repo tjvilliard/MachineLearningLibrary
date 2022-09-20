@@ -36,37 +36,43 @@ class Node:
         self.info_gain = info_gain
         self.is_leaf = is_leaf
 
+    def get_value(self):
+        return
+
+    ## could put most helper methods, especially purity measures, in node class
+
 
 class DecisionTree:
-    def __init__(self, data, min_samples=2, max_depth=2):
+    def __init__(self, data, mode="entropy", min_samples=2, max_depth=10):
         self.min_samples = min_samples
         self.max_depth = max_depth
+        self.mode = mode
 
         self.root = self.build_tree(data)
 
     def build_tree(self, data, depth=0):
         # check the shape of the data to get the size of data
-        x, y = data[:, :-1], data[:, -1]
-        num_samples, num_attrs = x.shape()
+        num_samples = np.shape(data)[0]
 
-        if depth <= self.max_depth or num_samples > self.min_samples:
+        if depth <= self.max_depth and num_samples > self.min_samples:
+            # set split_node to node of best split
             split_node = self.find_best_split(data)
 
-            if split_node.info_gain > 0:
-                # if split_node has no children
-                if len(split_node.children) == 0:
-                    split_node.is_leaf = True
-                    return split_node
-                #
-                for key in split_node.children.keys():
-                    # replace the child data set with child tree
-                    split_node.children[key] = self.build_tree(split_node.children[key], depth+1)
+            # node has no children or node is sorted
+            if len(split_node.children) == 0 or split_node.info_gain == 0:
+                split_node.is_leaf = True
+                return split_node
+            # node has children
+            for key in split_node.children.keys():
+                # replace the child data set with child tree
+                split_node.children[key] = self.build_tree(split_node.children[key], depth+1)
+            return split_node
 
         # if stopping conditions met, continues here
         return Node(data=data, is_leaf=True)
 
     def find_best_split(self, data):
-        ###### so not sure about this node return procedure
+        """Initializes node from data set. Sets node properties according to those that best split the node."""
         node = Node(data=data)
         max_gain = float('-inf')
 
@@ -78,12 +84,13 @@ class DecisionTree:
             info_gain = self.info_gain(data, split.values())
 
             if info_gain > max_gain:
+                # reset marker and initialize node properties
                 max_gain = info_gain
 
                 node.info_gain = info_gain
                 node.split_idx = attr_idx
                 node.children = split
-
+        # returns node of best split
         return node
 
     def info_gain(self, pre_split, splits, mode="entropy"):
@@ -102,7 +109,7 @@ class DecisionTree:
             y.append(s_lab)
             weights.append(len(s_lab) / len(Y))
 
-        if mode == 'entropy':
+        if self.mode == 'entropy':
             # entropy pre-split
             h_s = entropy(Y)
 
@@ -112,3 +119,10 @@ class DecisionTree:
                 h_split += weights[i] * entropy(y[i])
 
             return h_s - h_split
+
+    def traverse_tree(self, node):
+        curr_node = node
+        if curr_node.is_leaf:
+            return
+        for key in curr_node.children.keys():
+            self.traverse_tree(curr_node.children[key])

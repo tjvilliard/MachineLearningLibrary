@@ -14,11 +14,14 @@ def main():
         [0, 1, 0, 1, 0]
     ], columns=["x1", "x2", "x3", "x4", "y"])
 
-    tree = dt.DecisionTree()
+
 
     data = t_1.iloc[:].to_numpy()
-    split = dt.split_data(data, 1).values()
-    print(tree.info_gain(data, split))
+    tree = dt.DecisionTree(data)
+    tree.traverse_tree(tree.root)
+
+
+
 
 
 

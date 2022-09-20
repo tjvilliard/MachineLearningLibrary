@@ -12,6 +12,7 @@ def entropy(y):
         ent += -plabel * np.log2(plabel)
     return ent
 
+
 def majority(y):
     # labels
     labels = np.unique(y)
@@ -37,7 +38,10 @@ class Node:
         self.is_leaf = is_leaf
 
     def get_value(self):
-        return
+        label_list = list(self.data[:, -1])
+
+        # return the label with the highest count in the dataset
+        return max(label_list, key=label_list.count)
 
     ## could put most helper methods, especially purity measures, in node class
 
@@ -65,7 +69,7 @@ class DecisionTree:
             # node has children
             for key in split_node.children.keys():
                 # replace the child data set with child tree
-                split_node.children[key] = self.build_tree(split_node.children[key], depth+1)
+                split_node.children[key] = self.build_tree(split_node.children[key], depth + 1)
             return split_node
 
         # if stopping conditions met, continues here
@@ -86,7 +90,6 @@ class DecisionTree:
             if info_gain > max_gain:
                 # reset marker and initialize node properties
                 max_gain = info_gain
-
                 node.info_gain = info_gain
                 node.split_idx = attr_idx
                 node.children = split
@@ -120,9 +123,34 @@ class DecisionTree:
 
             return h_s - h_split
 
-    def traverse_tree(self, node):
-        curr_node = node
-        if curr_node.is_leaf:
-            return
-        for key in curr_node.children.keys():
-            self.traverse_tree(curr_node.children[key])
+    def predict(self, x):
+        if len(x) != np.shape(self.root.data)[1] - 1:
+            print("X does not fit data")
+            return None
+        return self.traverse_tree(self.root, x)
+
+    def traverse_tree(self, node, x):
+        """traverses the tree checking values of x at each node until leaf node is reached. Returns value of reached
+        leaf node. """
+
+        # if leaf return value of leaf
+        if node.is_leaf:
+            val = node.get_value()
+            return val
+
+        attr_idx = node.split_idx
+        x_val = x[attr_idx]
+        if x_val in node.children.keys():
+            next_node = node.children[x_val]
+            return self.traverse_tree(next_node, x)
+        else:
+            # if x_val not in node.children, choose most frequent val for fill in
+            count = 0
+            most_key = ""
+            for key in node.children.keys():
+                key_count = len(node.children[key].data)
+                if key_count > count:
+                    count = key_count
+                    most_key = key
+            next_node = node.children[most_key]
+            return self.traverse_tree(next_node, x)

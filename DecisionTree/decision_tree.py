@@ -28,9 +28,11 @@ class DecisionTree:
         self.root = self.build_tree(data)
 
     def build_tree(self, data, depth=0):
-        # check the shape of the data to get the size of data
-        num_samples = np.shape(data)[0]
+        """ recursively builds the tree in place using nodes and subsets of the original dataset"""
+        # check number of data points
+        num_samples = len(data)
 
+        # checking arbitrary stopping conditions
         if depth <= self.max_depth and num_samples > self.min_samples:
             # set split_node to node of best split
             split_node = self.find_best_split(data)
@@ -53,7 +55,7 @@ class DecisionTree:
     def find_best_split(self, data):
         """Initializes node from data set. Sets node properties according to those that best split the node."""
         node = Node(data=data)
-        max_gain = float('-inf')
+        max_gain = node.info_gain  # initialized to -1, info gain cannot be negative
 
         # split the data for each attribute and determine optimal split
         num_attr = data.shape[1] - 1
@@ -71,7 +73,7 @@ class DecisionTree:
         # returns node of best split
         return node
 
-    def info_gain(self, pre_split, splits, mode="entropy"):
+    def info_gain(self, pre_split, splits):
         """Calculates information gain from og data set to splits. pre_split should be ndarray with no column
         information, splits should be list of subsets of pre_split """
         # labels of data and splits
@@ -92,17 +94,30 @@ class DecisionTree:
             h_s = self.entropy(pre_split_labels)
 
             # entropy after split
-            h_split = 0
+            h_sv = 0
             for i in range(num_splits):
-                h_split += weights[i] * self.entropy(split_labels[i])
+                h_sv += weights[i] * self.entropy(split_labels[i])
 
-            return h_s - h_split
+            return h_s - h_sv
 
         elif self.mode == "gini":
-            return
+            # pre split gini
+            gini_s = self.gini(pre_split_labels)
 
+            gini_sv = 0
+            for i in range(num_splits):
+                gini_sv += weights[i]*self.gini(split_labels[i])
+
+            return gini_s - gini_sv
         elif self.mode == "majority":
-            return
+            # pre split gini
+            majority_s = self.majority(pre_split_labels)
+
+            majority_sv = 0
+            for i in range(num_splits):
+                majority_sv += weights[i] * self.majority(split_labels[i])
+
+            return majority_s - majority_sv
 
     def predict(self, x):
         if len(x) != np.shape(self.root.data)[1] - 1:
@@ -143,15 +158,29 @@ class DecisionTree:
 
         # sum over entropy given proportion of label to data
         ent = 0
-        for l in labels:
-            plabel = len(y[y == l]) / len(y)
-            ent += -plabel * np.log2(plabel)
+        for label in labels:
+            p_label = len(y[y == label]) / len(y)
+            ent += -p_label * np.log2(p_label)
         return ent
 
     @staticmethod
     def majority(y):
-        # labels
-        labels = np.unique(y)
+        # return proportion of non-majority label
+        # im assuming this is for binary classification only
+        label_list = list(y)
+        return min(label_list, key=label_list.count) / len(y)
+
+    @staticmethod
+    def gini(y):
+        # get unique labels
+        labels = np.unique(y[:])
+
+        # sum over entropy given proportion of label to data
+        gini_sum = 0
+        for label in labels:
+            p_label = len(y[y == label]) / len(y)
+            gini_sum += np.pow(p_label, 2)
+        return 1 - gini_sum
 
     @staticmethod
     def split_data(x, col_number):
@@ -159,7 +188,7 @@ class DecisionTree:
         vals = np.unique(x[:, col_number])
         for val in vals:
             subset = np.array([row for row in x if row[col_number] == val])
-            # dont track empty subsets
+            # do not track empty subsets
             if len(subset) > 0:
                 splits[val] = subset
         return splits

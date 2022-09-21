@@ -18,7 +18,9 @@ def main():
 
     data = t_1.iloc[:].to_numpy()
     tree = dt.DecisionTree(data)
-    tree.traverse_tree(tree.root)
+    for row in data:
+        print(tree.predict(row[:-1]))
+    print(tree.predict([1,1,1,1]))
 
 
 

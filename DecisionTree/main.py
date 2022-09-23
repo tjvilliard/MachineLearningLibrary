@@ -4,6 +4,12 @@ import decision_tree as dt
 
 
 def main():
+    # assignment_part_1()
+
+    assignment_part_2_car()
+
+
+def assignment_part_1():
     t_1 = pd.DataFrame([
         [0, 0, 1, 0, 0],
         [0, 1, 0, 0, 0],
@@ -29,16 +35,19 @@ def main():
         ["O", "M", "H", "S", 1],
         ["O", "H", "N", "W", 1],
         ["R", "M", "H", "S", 0],
-    ], columns=["O","T","H","W","Play"])
+    ], columns=["O", "T", "H", "W", "Play"])
 
 
-    data1 = t_1.to_numpy()
-    tree = dt.DecisionTree(data1)
+def assignment_part_2_car():
+    car_train_data = pd.read_csv("data\\ml_car\\train.csv",
+                                 names=["buying","maint", "doors", "persons", "lug_boot", "safety", "label"])
+    car_test_data = pd.read_csv("data\\ml_car\\test.csv",
+                                names=["buying","maint", "doors", "persons", "lug_boot", "safety", "label"])
+    print(car_train_data.head())
 
-    data2 = tennis.to_numpy()
-    tree2 = dt.DecisionTree(data2)
 
-    x = 4
+def assignment_part_2_bank():
+    return
 
 
 if __name__ == "__main__":

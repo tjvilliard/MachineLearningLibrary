@@ -17,13 +17,15 @@ class Node:
 
 
 class DecisionTree:
-    def __init__(self, data, mode="entropy", min_samples=2, max_depth=10):
+    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10):
+
         # arbitrary stopping conditions, user set
         self.min_samples = min_samples
         self.max_depth = max_depth
 
         # method of information gain: entropy, gini, or majority
         self.mode = mode
+
 
         self.root = self.build_tree(data)
 
@@ -33,7 +35,7 @@ class DecisionTree:
         num_samples = len(data)
 
         # checking arbitrary stopping conditions
-        if depth <= self.max_depth and num_samples > self.min_samples:
+        if depth <= self.max_depth and num_samples >= self.min_samples:
             # set split_node to node of best split
             split_node = self.find_best_split(data)
 
@@ -55,7 +57,7 @@ class DecisionTree:
     def find_best_split(self, data):
         """Initializes node from data set. Sets node properties according to those that best split the node."""
         node = Node(data=data)
-        max_gain = node.info_gain  # initialized to -1, info gain cannot be negative
+        max_gain = -1  # info gain cannot be negative
 
         # split the data for each attribute and determine optimal split
         num_attr = data.shape[1] - 1
@@ -109,12 +111,16 @@ class DecisionTree:
                 gini_sv += weights[i]*self.gini(split_labels[i])
 
             return gini_s - gini_sv
+
         elif self.mode == "majority":
-            # pre split gini
+            # pre split ME
             majority_s = self.majority(pre_split_labels)
 
             majority_sv = 0
             for i in range(num_splits):
+                w = weights[i]
+                split_i = split_labels[i]
+                me_i = self.majority(split_i)
                 majority_sv += weights[i] * self.majority(split_labels[i])
 
             return majority_s - majority_sv
@@ -166,9 +172,12 @@ class DecisionTree:
     @staticmethod
     def majority(y):
         # return proportion of non-majority label
-        # im assuming this is for binary classification only
+
         label_list = list(y)
-        return min(label_list, key=label_list.count) / len(y)
+        majority_label = max(label_list, key=label_list.count)
+        majority_p = label_list.count(majority_label) / len(label_list)
+        majority_error = 1 - majority_p
+        return majority_error
 
     @staticmethod
     def gini(y):
@@ -179,7 +188,7 @@ class DecisionTree:
         gini_sum = 0
         for label in labels:
             p_label = len(y[y == label]) / len(y)
-            gini_sum += np.pow(p_label, 2)
+            gini_sum += np.power(p_label, 2)
         return 1 - gini_sum
 
     @staticmethod

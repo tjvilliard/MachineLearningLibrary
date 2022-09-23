@@ -1,13 +1,35 @@
 import numpy as np
 
 
+# credit: https://stackoverflow.com/questions/37996471/element-wise-test-of-numpy-array-is-numeric
+def is_float(val):
+    try:
+        float(val)
+    except ValueError:
+        return False
+    else:
+        return True
+
+
+def is_numeric(x):
+    return map(is_float, x)
+
+
+def arr_isnumeric(arr):
+    if sum(is_numeric(arr)) == len(arr):
+        return True
+    else:
+        return False
+
+
 class Node:
-    def __init__(self, data=None, split_idx=0, children=None, info_gain=-1, is_leaf=False):
+    def __init__(self, data=None, split_idx=0, children=None, info_gain=-1, is_leaf=False, threshold=None):
         self.data = data
         self.split_idx = split_idx
         self.children = children
         self.info_gain = info_gain
         self.is_leaf = is_leaf
+        self.threshold = threshold
 
     def get_value(self):
         label_list = list(self.data[:, -1])
@@ -60,17 +82,36 @@ class DecisionTree:
 
         # split the data for each attribute and determine optimal split
         num_attr = data.shape[1] - 1
+
+        # treat numeric data differently
+        numeric_col = False
+        threshold = None
         for attr_idx in range(num_attr):
-            # split data and compute info gain
-            split = self.split_data(data, attr_idx)
+            # check if column is numeric
+            column = data[:, attr_idx]
+            if arr_isnumeric(column):
+                # numeric data
+                threshold, split = self.split_numeric(data, attr_idx)
+                numeric_col = True
+            else:
+                # categorical data
+                split = self.split_data(data, attr_idx)
+
+            # compute info gain from either categorical or numeric split
             info_gain = self.info_gain(data, split.values())
 
             if info_gain > max_gain:
                 # reset marker and initialize node properties
                 max_gain = info_gain
+
                 node.info_gain = info_gain
                 node.split_idx = attr_idx
                 node.children = split
+                if numeric_col:
+                    node.threshold = threshold
+                    numeric_col = False
+                else:
+                    node.threshold = None
         # returns node of best split
         return node
 
@@ -86,6 +127,11 @@ class DecisionTree:
         num_splits = len(splits)
         weights = []
         for s in splits:
+            # s only == 0 if splits is numeric and doesnt split the data
+            # i think...
+            if len(s) == 0:
+                return 0
+
             s_lab = s[:, -1]
             split_labels.append(s_lab)
             weights.append(len(s_lab) / len(pre_split_labels))
@@ -112,7 +158,7 @@ class DecisionTree:
             return gini_s - gini_sv
 
         elif self.mode == "majority":
-            # pre split ME
+            # pre-split ME
             majority_s = self.majority(pre_split_labels)
 
             majority_sv = 0
@@ -205,3 +251,10 @@ class DecisionTree:
             if len(subset) > 0:
                 splits[val] = subset
         return splits
+
+    @staticmethod
+    def split_numeric(x, col_number):
+        threshold = np.median(x[:, col_number])
+        splits = {"left": np.array([row for row in x if row[col_number] < threshold]),
+                  "right": np.array([row for row in x if row[col_number] >= threshold])}
+        return threshold, splits

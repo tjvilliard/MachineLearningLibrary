@@ -26,13 +26,12 @@ class DecisionTree:
         # method of information gain: entropy, gini, or majority
         self.mode = mode
 
-
         self.root = self.build_tree(data)
 
     def build_tree(self, data, depth=0):
         """ recursively builds the tree in place using nodes and subsets of the original dataset"""
         # check number of data points
-        num_samples = len(data)
+        num_samples = np.shape(data)[0]
 
         # checking arbitrary stopping conditions
         if depth <= self.max_depth and num_samples >= self.min_samples:
@@ -108,7 +107,7 @@ class DecisionTree:
 
             gini_sv = 0
             for i in range(num_splits):
-                gini_sv += weights[i]*self.gini(split_labels[i])
+                gini_sv += weights[i] * self.gini(split_labels[i])
 
             return gini_s - gini_sv
 
@@ -126,10 +125,15 @@ class DecisionTree:
             return majority_s - majority_sv
 
     def predict(self, x):
-        if len(x) != np.shape(self.root.data)[1] - 1:
+        """returns ndarray of predictions for all data points in x"""
+        if np.shape(x)[1] != np.shape(self.root.data)[1] - 1:
             print("X does not fit data")
             return None
-        return self.traverse_tree(self.root, x)
+
+        predictions = []
+        for data_point in x:
+            predictions.append(self.traverse_tree(self.root, data_point))
+        return np.array(predictions)
 
     def traverse_tree(self, node, x):
         """traverses the tree checking values of x at each node until leaf node is reached. Returns value of reached

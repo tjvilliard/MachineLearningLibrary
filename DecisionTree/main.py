@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import decision_tree as dt
+from decision_tree import DecisionTree
 
 
 def main():
@@ -37,17 +38,87 @@ def assignment_part_1():
         ["R", "M", "H", "S", 0],
     ], columns=["O", "T", "H", "W", "Play"])
 
+    table_numpy = t_1.to_numpy()
+    table_tree = DecisionTree(table_numpy)
+    x, y = table_numpy[:, :-1], table_numpy[:, -1]
+    test = table_tree.predict(x)
+    print(prediction_error(test, y))
+
 
 def assignment_part_2_car():
-    car_train_data = pd.read_csv("data\\ml_car\\train.csv",
-                                 names=["buying","maint", "doors", "persons", "lug_boot", "safety", "label"])
-    car_test_data = pd.read_csv("data\\ml_car\\test.csv",
-                                names=["buying","maint", "doors", "persons", "lug_boot", "safety", "label"])
-    print(car_train_data.head())
+    car_train_df = pd.read_csv("data\\ml_car\\train.csv",
+                               names=["buying", "maint", "doors", "persons", "lug_boot", "safety", "label"])
+
+    car_test_df = pd.read_csv("data\\ml_car\\test.csv",
+                              names=["buying", "maint", "doors", "persons", "lug_boot", "safety", "label"])
+
+    car_train_array = car_train_df.to_numpy()
+    car_test_array = car_test_df.to_numpy()
+    x_train, y_train = car_train_array[:, :-1], car_train_array[:, -1]
+    x_test, y_test = car_test_array[:, :-1], car_test_array[:, -1]
+
+    # dicts to track mode and depth prediction data and average error of each mode
+    mode_data_train = {}
+    train_avg_err = {}
+    mode_data_test = {}
+    test_avg_err = {}
+
+    # information gain modes and max depth for iteration
+    modes = ["entropy", "gini", "majority"]
+    max_depth = 6
+
+    # for each mode build tree of each depth and track prediction data
+    for m in modes:
+
+        # avg error of all depths for each mode
+        mode_err_sum_train = 0
+        mode_err_sum_test = 0
+
+        for i in range(1, max_depth + 1):
+            # build tree at depth i from training data
+            car_tree = DecisionTree(car_train_array, max_depth=i, mode=m)
+
+            series_name = m + ": Depth = " + str(i)
+
+            # track predictions in dictionary so it can be converted to pd.series/dataframe
+            mode_data_train[series_name] = car_tree.predict(x_train)
+            mode_data_test[series_name] = car_tree.predict(x_test)
+
+            try:
+                mode_err_sum_train += prediction_error(y_train, mode_data_train[series_name])
+                mode_err_sum_test += prediction_error(y_test, mode_data_test[series_name])
+            except:
+                print("stupid fucking thing")
+
+        train_avg_err[m] = np.round(mode_err_sum_train / max_depth, 3)
+        test_avg_err[m] = np.round(mode_err_sum_test / max_depth, 3)
+
+    print("Average Error Training Data")
+    print(train_avg_err , "\n")
+    print("Average Error Test Data")
+    print(test_avg_err)
+
+    prediction_train = pd.DataFrame(mode_data_train)
+    prediction_test = pd.DataFrame(mode_data_test)
+
+    # put all the data in their own data frames just in case thats necessary
+    train_df = pd.concat([car_train_df, prediction_train], axis=1)
+    test_df = pd.concat([car_test_df, prediction_test], axis=1)
+
+    print("debug")
 
 
 def assignment_part_2_bank():
     return
+
+
+def prediction_error(actual, prediction):
+    if len(actual) != len(prediction):
+        print("arrays not equal length")
+        return None
+    error = np.equal(actual, prediction)
+    error_rate = 1 - (sum(error) / len(actual))
+    return error_rate
 
 
 if __name__ == "__main__":

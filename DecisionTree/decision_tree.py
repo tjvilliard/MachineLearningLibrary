@@ -39,11 +39,12 @@ class Node:
 
 
 class DecisionTree:
-    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10):
+    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10, handle_numeric=False):
 
         # arbitrary stopping conditions, user set
         self.min_samples = min_samples
         self.max_depth = max_depth
+        self.handle_numeric = handle_numeric
 
         # method of information gain: entropy, gini, or majority
         self.mode = mode
@@ -52,6 +53,7 @@ class DecisionTree:
 
     def build_tree(self, data, depth=0):
         """ recursively builds the tree in place using nodes and subsets of the original dataset"""
+
         # check number of data points
         num_samples = np.shape(data)[0]
 
@@ -89,7 +91,7 @@ class DecisionTree:
         for attr_idx in range(num_attr):
             # check if column is numeric
             column = data[:, attr_idx]
-            if arr_isnumeric(column):
+            if arr_isnumeric(column) and self.handle_numeric:
                 # numeric data
                 threshold, split = self.split_numeric(data, attr_idx)
                 numeric_col = True
@@ -120,6 +122,7 @@ class DecisionTree:
         information, splits should be list of subsets of pre_split """
         # labels of data and splits
         pre_split_labels = pre_split[:, -1]
+
         split_labels = []
 
         # splits are subsets of pre_split based on value of single attribute

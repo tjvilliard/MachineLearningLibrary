@@ -4,11 +4,11 @@ from decision_tree import DecisionTree
 
 
 def main():
-    # assignment_part_1()
+    #assignment_part_1()
 
-    # assignment_part_2_car()
+    assignment_part_2_car()
 
-    assignment_part_2_bank()
+    # assignment_part_2_bank()
 
 
 def assignment_part_1():
@@ -37,13 +37,21 @@ def assignment_part_1():
         ["O", "M", "H", "S", 1],
         ["O", "H", "N", "W", 1],
         ["R", "M", "H", "S", 0],
+        ["O", "M", "N", "W", 1],
+        ["O", "M", "N", "W", 1]
+
     ], columns=["O", "T", "H", "W", "Play"])
 
-    table_numpy = t_1.to_numpy()
-    table_tree = DecisionTree(table_numpy)
-    x, y = table_numpy[:, :-1], table_numpy[:, -1]
-    test = table_tree.predict(x)
-    print(prediction_error(test, y))
+    placeholder = ["O", "M", "N", "W", 1]
+    fill = tennis["W"].where(tennis["Play"]==1)
+
+    tennisnp = tennis.to_numpy()
+    fill_val = max(list(tennisnp.T[0]), key=list(tennisnp.T[0]).count)
+    tree = DecisionTree(tennisnp)
+    for i in range(4):
+        splits = DecisionTree.split_data(tennisnp, i)
+        i_gain = tree.info_gain(tennisnp, splits.values())
+        print("Col " + str(i) + " i_gain: " + str(np.round(i_gain, 3)))
 
 
 def assignment_part_2_car():
@@ -85,11 +93,8 @@ def assignment_part_2_car():
             mode_data_train[series_name] = car_tree.predict(x_train)
             mode_data_test[series_name] = car_tree.predict(x_test)
 
-            try:
-                mode_err_sum_train += prediction_error(y_train, mode_data_train[series_name])
-                mode_err_sum_test += prediction_error(y_test, mode_data_test[series_name])
-            except:
-                print("stupid fucking thing")
+            mode_err_sum_train += prediction_error(y_train, mode_data_train[series_name])
+            mode_err_sum_test += prediction_error(y_test, mode_data_test[series_name])
 
         train_avg_err[m] = np.round(mode_err_sum_train / max_depth, 3)
         test_avg_err[m] = np.round(mode_err_sum_test / max_depth, 3)

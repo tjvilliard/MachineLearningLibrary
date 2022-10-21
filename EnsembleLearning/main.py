@@ -4,6 +4,16 @@ import pandas as pd
 
 
 def main():
+
+    assignment_2a()
+
+    #assignment_2b()
+
+    #assignment_2c()
+
+    #assignment_2d()
+
+def assignment_2a():
     col_names = range(17)
     bank_train_df = pd.read_csv("data\\ml_bank\\train.csv",
                                 names=col_names)
@@ -21,8 +31,8 @@ def main():
 
     test_errs = []
     train_errs = []
-    exp = open("ada_exp.csv", "w")
-    st_data = open("stump_data.csv", "w")
+    exp = open("Experiments/ada_exp.csv", "w")
+    st_data = open("Experiments/stump_data.csv", "w")
 
     exp.write("t, train, test \n")
     st_data.write("")
@@ -33,10 +43,15 @@ def main():
         train_pred = ensemble.predict(x_train)
         test_pred = ensemble.predict(x_test)
 
-        exp.write(str(t) + ", " + str(prediction_error(y_train, train_pred)) + ", " + str(prediction_error(y_test, test_pred)) + "\n")
+        exp.write(str(t) + ", " + str(prediction_error(y_train, train_pred)) + ", " + str(
+            prediction_error(y_test, test_pred)) + "\n")
 
 
+def assignment_2b():
 
+def assignment_2c():
+
+def assignment_2d():
 
 if __name__ == "__main__":
     main()

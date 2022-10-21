@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,14 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/rSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EnsembleLearning/ada_exp.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MahineLearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MahineLearning.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DecisionTree/decision_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/DecisionTree/decision_tree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DecisionTree/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/DecisionTree/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EnsembleLearning/ada_boost.py" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/ada_boost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EnsembleLearning/ada_exp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/Experiments/ada_exp.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EnsembleLearning/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EnsembleLearning/stump_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/Experiments/stump_data.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,15 +39,23 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2GSABf67vACENPS6lbZF4y6TAhh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\EnsembleLearning\Experiments" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />

@@ -29,6 +29,7 @@ class AdaBoost:
         # all stumps in ensemble
         self.stumps = []  # empty array for holding stumps
         self.amount_say = []
+        self.votes = []
 
         self.labels = data[:, -1]
         self.data = data
@@ -44,7 +45,9 @@ class AdaBoost:
         # add all vote vectors and sign of each element is prediction
         for i in range(t):
             stump = self.stumps[i]
-            votes = stump.predict(new_data) * self.amount_say[i]
+            pred = stump.predict(new_data)
+            self.votes.append(pred)
+            votes = pred * self.amount_say[i]
             final_votes += votes
 
         #print("stump predictions done")

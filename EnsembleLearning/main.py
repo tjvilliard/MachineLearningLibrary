@@ -21,16 +21,19 @@ def main():
 
     test_errs = []
     train_errs = []
-    f = open("ada_exp.csv", "w")
-    f.write("t, train, test \n")
-    for t in range(1, 501):
+    exp = open("ada_exp.csv", "w")
+    st_data = open("stump_data.csv", "w")
+
+    exp.write("t, train, test \n")
+    st_data.write("")
+    for t in range(1, 502, 50):
         print(t)
         ensemble = AdaBoost(train, t)
 
         train_pred = ensemble.predict(x_train)
         test_pred = ensemble.predict(x_test)
 
-        f.write(str(t) + ", " + str(prediction_error(y_train, train_pred)) + ", " + str(prediction_error(y_test, test_pred)) + "\n")
+        exp.write(str(t) + ", " + str(prediction_error(y_train, train_pred)) + ", " + str(prediction_error(y_test, test_pred)) + "\n")
 
 
 

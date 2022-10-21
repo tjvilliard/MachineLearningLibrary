@@ -38,6 +38,7 @@ class Node:
 
         # return the label with the highest count in the dataset
         return max(label_list, key=label_list.count)
+
     def set_value(self):
         label_list = list(self.data[:, -1])
 
@@ -64,7 +65,7 @@ class DecisionTree:
 
         # check number of data points
         num_samples = np.shape(data)[0]
-        #split_node = self.find_best_split(data)
+        # split_node = self.find_best_split(data)
         # checking arbitrary stopping conditions
         if depth < self.max_depth and num_samples >= self.min_samples:  ####### changed to less than over lequal
             # set split_node to node of best split
@@ -80,6 +81,7 @@ class DecisionTree:
             for key in split_node.children.keys():
                 # replace the child data set with child tree
                 split_node.children[key] = self.build_tree(split_node.children[key], depth + 1)
+
 
             return split_node
 
@@ -195,7 +197,6 @@ class DecisionTree:
         predictions = []
         for data_point in x:
             predictions.append(self.traverse_tree(self.root, data_point))
-
 
         return np.array(predictions)
 

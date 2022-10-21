@@ -30,12 +30,19 @@ class Node:
         self.info_gain = info_gain
         self.is_leaf = is_leaf
         self.threshold = threshold
+        self.is_number = False
+        self.value = None
 
     def get_value(self):
         label_list = list(self.data[:, -1])
 
         # return the label with the highest count in the dataset
         return max(label_list, key=label_list.count)
+    def set_value(self):
+        label_list = list(self.data[:, -1])
+
+        # return the label with the highest count in the dataset
+        self.value = max(label_list, key=label_list.count)
 
 
 class DecisionTree:
@@ -58,7 +65,7 @@ class DecisionTree:
         num_samples = np.shape(data)[0]
 
         # checking arbitrary stopping conditions
-        if depth <= self.max_depth and num_samples >= self.min_samples:
+        if depth < self.max_depth and num_samples >= self.min_samples:  ####### changed to less than over lequal
             # set split_node to node of best split
             split_node = self.find_best_split(data)
 
@@ -75,7 +82,9 @@ class DecisionTree:
             return split_node
 
         # if stopping conditions met, continues here
-        return Node(data=data, is_leaf=True)
+        node = Node(data=data, is_leaf=True)
+        node.set_value()
+        return node
 
     def find_best_split(self, data):
         """Initializes node from data set. Sets node properties according to those that best split the node."""
@@ -85,10 +94,11 @@ class DecisionTree:
         # split the data for each attribute and determine optimal split
         num_attr = data.shape[1] - 1
 
-        # treat numeric data differently
-        numeric_col = False
-        threshold = None
         for attr_idx in range(num_attr):
+            # treat numeric data differently
+            numeric_col = False
+            threshold = None
+
             # check if column is numeric
             column = data[:, attr_idx]
             if arr_isnumeric(column) and self.handle_numeric:
@@ -111,9 +121,10 @@ class DecisionTree:
                 node.children = split
                 if numeric_col:
                     node.threshold = threshold
-                    numeric_col = False
+                    node.is_number = True
                 else:
                     node.threshold = None
+                    node.is_number = False
         # returns node of best split
         return node
 
@@ -173,7 +184,7 @@ class DecisionTree:
 
             return majority_s - majority_sv
 
-    def predict(self, x):
+    def predict(self, x):  ####################### bottle neck
         """returns ndarray of predictions for all data points in x"""
         if np.shape(x)[1] != np.shape(self.root.data)[1] - 1:
             print("X does not fit data")
@@ -182,6 +193,8 @@ class DecisionTree:
         predictions = []
         for data_point in x:
             predictions.append(self.traverse_tree(self.root, data_point))
+
+
         return np.array(predictions)
 
     def traverse_tree(self, node, x):
@@ -190,11 +203,21 @@ class DecisionTree:
 
         # if leaf return value of leaf
         if node.is_leaf:
-            val = node.get_value()
-            return val
+            return node.value
 
         attr_idx = node.split_idx
         x_val = x[attr_idx]
+
+        # numeric column
+        if node.is_number:
+            if float(x_val) < node.threshold:
+                next_node = node.children['left']
+                return self.traverse_tree(next_node, x)
+            else:
+                next_node = node.children['right']
+                return self.traverse_tree(next_node, x)
+
+        # Categorical traversal
         if x_val in node.children.keys():
             next_node = node.children[x_val]
             return self.traverse_tree(next_node, x)
@@ -257,7 +280,9 @@ class DecisionTree:
 
     @staticmethod
     def split_numeric(x, col_number):
-        threshold = np.median(x[:, col_number])
-        splits = {"left": np.array([row for row in x if row[col_number] < threshold]),
-                  "right": np.array([row for row in x if row[col_number] >= threshold])}
+        column = x[:, col_number]
+        threshold = np.median([float(i) for i in column])
+
+        splits = {"left": np.array([row for row in x if float(row[col_number]) < threshold]),
+                  "right": np.array([row for row in x if float(row[col_number]) >= threshold])}
         return threshold, splits

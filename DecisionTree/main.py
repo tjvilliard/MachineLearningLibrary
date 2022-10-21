@@ -1,14 +1,15 @@
 import numpy as np
 import pandas as pd
 from decision_tree import DecisionTree
+from decision_tree import arr_isnumeric
 
 
 def main():
     #assignment_part_1()
 
-    assignment_part_2_car()
+    #assignment_part_2_car()
 
-    # assignment_part_2_bank()
+    assignment_part_2_bank()
 
 
 def assignment_part_1():
@@ -65,6 +66,9 @@ def assignment_part_2_car():
     car_test_array = car_test_df.to_numpy()
     x_train, y_train = car_train_array[:, :-1], car_train_array[:, -1]
     x_test, y_test = car_test_array[:, :-1], car_test_array[:, -1]
+
+    for i in range(np.shape(car_train_array)[0] ):
+        print(arr_isnumeric(car_train_array[:, i]))
 
     # dicts to track mode and depth prediction data and average error of each mode
     mode_data_train = {}
@@ -129,12 +133,12 @@ def assignment_part_2_bank():
 
             # first for the training df
             train_column = bank_train_df[name]
-            most_common_train = train_column.to_numpy()[0]
+            most_common_train = train_column.mode()[0]
             bank_train_df[name] = train_column.replace(to_replace="unknown", value=most_common_train)
 
             # then for the test df
             test_column = bank_test_df[name]
-            most_common_test = test_column.to_numpy()[0]
+            most_common_test = test_column.mode()[0]
             bank_test_df[name] = test_column.replace(to_replace="unknown", value=most_common_test)
 
     bank_train_array = bank_train_df.to_numpy()
@@ -160,12 +164,12 @@ def assignment_part_2_bank():
         mode_err_sum_train = 0
         mode_err_sum_test = 0
 
-        for i in range(1, max_depth + 1):
+        for i in range(10, max_depth + 1):
             # build tree at depth i from training data
-            bank_tree = DecisionTree(bank_train_array, max_depth=i, mode=m)
+            bank_tree = DecisionTree(bank_train_array, max_depth=i, mode=m, handle_numeric=True)
 
             series_name = m + ": Depth = " + str(i)
-            print(series_name)
+            #print(series_name)
 
             # track predictions in dictionary so it can be converted to pd.series/dataframe
             mode_data_train[series_name] = bank_tree.predict(x_train)
@@ -175,7 +179,7 @@ def assignment_part_2_bank():
                 mode_err_sum_train += prediction_error(y_train, mode_data_train[series_name])
                 mode_err_sum_test += prediction_error(y_test, mode_data_test[series_name])
             except:
-                print("stupid fucking thing")
+                print("error")
 
         train_avg_err[m] = np.round(mode_err_sum_train / max_depth, 3)
         test_avg_err[m] = np.round(mode_err_sum_test / max_depth, 3)
@@ -184,6 +188,9 @@ def assignment_part_2_bank():
     print(train_avg_err, "\n")
     print("Average Error Test Data")
     print(test_avg_err)
+    print("\n" + "Training Data")
+    print(mode_data_train)
+    print('\n' + "Test Data")
 
     prediction_train = pd.DataFrame(mode_data_train)
     prediction_test = pd.DataFrame(mode_data_test)

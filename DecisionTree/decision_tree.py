@@ -1,5 +1,5 @@
 import numpy as np
-
+from numpy.random import choice
 
 # credit: https://stackoverflow.com/questions/37996471/element-wise-test-of-numpy-array-is-numeric
 def is_float(val):
@@ -47,7 +47,7 @@ class Node:
 
 
 class DecisionTree:
-    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10, handle_numeric=False):
+    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10, handle_numeric=False, random=False):
 
         # arbitrary stopping conditions, user set
         self.min_samples = min_samples
@@ -56,6 +56,7 @@ class DecisionTree:
 
         # method of information gain: entropy, gini, or majority
         self.mode = mode
+        self.random = random
 
         self.depth = 0
         self.root = self.build_tree(data)
@@ -82,7 +83,6 @@ class DecisionTree:
                 # replace the child data set with child tree
                 split_node.children[key] = self.build_tree(split_node.children[key], depth + 1)
 
-
             return split_node
 
         # if stopping conditions met, continues here
@@ -98,7 +98,13 @@ class DecisionTree:
         # split the data for each attribute and determine optimal split
         num_attr = data.shape[1] - 1
 
-        for attr_idx in range(num_attr):
+        # random learner adjustment
+        if self.random:
+            attr_set = choice(range(num_attr), int(num_attr / 2), replace=False)
+        else:
+            attr_set = range(num_attr)
+
+        for attr_idx in attr_set:
             # treat numeric data differently
             numeric_col = False
             threshold = None
@@ -289,3 +295,4 @@ class DecisionTree:
         splits = {"left": np.array([row for row in x if float(row[col_number]) < threshold]),
                   "right": np.array([row for row in x if float(row[col_number]) >= threshold])}
         return threshold, splits
+

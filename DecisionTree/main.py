@@ -7,7 +7,7 @@ from decision_tree import arr_isnumeric
 def main():
     #assignment_part_1()
 
-    #assignment_part_2_car()
+    assignment_part_2_car()
 
     assignment_part_2_bank()
 
@@ -67,8 +67,7 @@ def assignment_part_2_car():
     x_train, y_train = car_train_array[:, :-1], car_train_array[:, -1]
     x_test, y_test = car_test_array[:, :-1], car_test_array[:, -1]
 
-    for i in range(np.shape(car_train_array)[0] ):
-        print(arr_isnumeric(car_train_array[:, i]))
+
 
     # dicts to track mode and depth prediction data and average error of each mode
     mode_data_train = {}
@@ -87,7 +86,7 @@ def assignment_part_2_car():
         mode_err_sum_train = 0
         mode_err_sum_test = 0
 
-        for i in range(1, max_depth + 1):
+        for i in range(3, max_depth + 1):
             # build tree at depth i from training data
             car_tree = DecisionTree(car_train_array, max_depth=i, mode=m)
 

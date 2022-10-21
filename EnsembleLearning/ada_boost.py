@@ -32,7 +32,7 @@ class AdaBoost:
 
         self.labels = data[:, -1]
         self.data = data
-        print("Begin boost \n")
+        #print("Begin boost \n")
         self.tree_boost()
 
     def predict(self, new_data):
@@ -47,7 +47,7 @@ class AdaBoost:
             votes = stump.predict(new_data) * self.amount_say[i]
             final_votes += votes
 
-        print("stump predictions done")
+        #print("stump predictions done")
         sign_vec = np.vectorize(sign)
         prediction_arr = sign_vec(final_votes)
 
@@ -61,7 +61,7 @@ class AdaBoost:
 
         # one round for every stump created
         for i in range(self.num_trees):
-            print("building stump " + str(i))
+            #print("building stump " + str(i))
             # create stump
             stump = dt.DecisionTree(max_depth=1, data=train_data, handle_numeric=True)
 

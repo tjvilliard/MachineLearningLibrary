@@ -19,14 +19,14 @@ def main():
     x_train, y_train = train[:, :-1], train[:, -1]
     x_test, y_test = test[:, :-1], test[:, -1]
 
-    for t in range(1, 501):
-        ensemble = AdaBoost(train, 500)
-
+    for t in range(1, 501, 10):
+        ensemble = AdaBoost(train, t)
 
         train_pred = ensemble.predict(x_train)
         test_pred = ensemble.predict(x_test)
         print("Train Error: " + str(prediction_error(y_train, train_pred)))
         print("Test Error: " + str(prediction_error(y_test, test_pred)))
+        print("\n")
 
 
 if __name__ == "__main__":

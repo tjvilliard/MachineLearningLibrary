@@ -56,6 +56,7 @@ class DecisionTree:
         # method of information gain: entropy, gini, or majority
         self.mode = mode
 
+        self.depth = 0
         self.root = self.build_tree(data)
 
     def build_tree(self, data, depth=0):
@@ -63,7 +64,7 @@ class DecisionTree:
 
         # check number of data points
         num_samples = np.shape(data)[0]
-
+        #split_node = self.find_best_split(data)
         # checking arbitrary stopping conditions
         if depth < self.max_depth and num_samples >= self.min_samples:  ####### changed to less than over lequal
             # set split_node to node of best split
@@ -72,6 +73,7 @@ class DecisionTree:
             # node has no children or node is sorted
             if len(split_node.children) == 0 or split_node.info_gain == 0:
                 split_node.is_leaf = True
+                split_node.set_value()
                 return split_node
 
             # node has children

@@ -5,16 +5,16 @@ from numpy.random import choice
 
 class BaggedTrees:
 
-    def __init__(self, data, bag_size, num_trees):
+    def __init__(self, data, bag_size, num_trees, random=False):
         self.trees = []
-
+        self.random = random
         self.assemble_trees(data, bag_size, num_trees)
 
     def assemble_trees(self, data, bag_size, num_trees):
         num_col = np.shape(data)[1] - 1
         for i in range(num_trees):
             batch = choice(data, bag_size, replace=True)
-            tree = DecisionTree(batch, max_depth=num_col)
+            tree = DecisionTree(batch, max_depth=num_col, random=self.random)
             self.trees.append(tree)
 
     def predict(self, new_data):
@@ -34,3 +34,4 @@ class BaggedTrees:
             true_predictions.append(vote)
 
         return true_predictions
+

@@ -33,6 +33,7 @@ class Node:
         self.is_number = False
         self.value = None
 
+
     def get_value(self):
         label_list = list(self.data[:, -1])
 
@@ -56,6 +57,7 @@ class DecisionTree:
         # method of information gain: entropy, gini, or majority
         self.mode = mode
         self.random = random
+        self.attr_set = choice(range(np.shape(data)[1]-1), 3) if random else range(np.shape(data)[1]-1)
 
         self.depth = 0
         self.root = self.build_tree(data)
@@ -98,12 +100,8 @@ class DecisionTree:
         num_attr = data.shape[1] - 1
 
         # random learner adjustment
-        if self.random:
-            attr_set = choice(range(num_attr), int(num_attr / 2), replace=False)
-        else:
-            attr_set = range(num_attr)
 
-        for attr_idx in attr_set:
+        for attr_idx in self.attr_set:
             # treat numeric data differently
             numeric_col = False
             threshold = None

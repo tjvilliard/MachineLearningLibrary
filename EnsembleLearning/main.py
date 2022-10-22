@@ -1,6 +1,7 @@
 from ada_boost import AdaBoost
 from ada_boost import prediction_error
 import pandas as pd
+import numpy as np
 
 
 def main():
@@ -38,7 +39,7 @@ def assignment_2a():
     exp.write("t, train, test \n")
     stump_tr_errors = []
     stump_test_errors = []
-    for t in range(1, 11):
+    for t in range(1, 501):
         print(t)
         ensemble = AdaBoost(train, t)
 
@@ -59,7 +60,7 @@ def assignment_2a():
     st_data = open("Experiments/stump_data.csv", "w")
     st_data.write("train, test \n")
     for i in range(len(stump_tr_errors)):
-        st_data.write(str(stump_tr_errors[i]) + ", " + str(stump_test_errors[i]) + "\n")
+        st_data.write(str(np.round(stump_tr_errors[i])) + ", " + str(np.round(stump_test_errors[i], 3)) + "\n")
     st_data.close()
     print("Complete: Experiments/stump_data.csv \n")
 

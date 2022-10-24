@@ -7,7 +7,7 @@ from decision_tree import arr_isnumeric
 def main():
     #assignment_part_1()
 
-    #assignment_part_2_car()
+    assignment_part_2_car()
 
     assignment_part_2_bank()
 
@@ -184,12 +184,9 @@ def assignment_part_2_bank():
         test_avg_err[m] = np.round(mode_err_sum_test / max_depth, 3)
 
     print("Average Error Training Data")
-    print(train_avg_err, "\n")
+    print(train_avg_err)
     print("Average Error Test Data")
     print(test_avg_err)
-    print("\n" + "Training Data")
-    print(mode_data_train)
-    print('\n' + "Test Data")
 
     prediction_train = pd.DataFrame(mode_data_train)
     prediction_test = pd.DataFrame(mode_data_test)

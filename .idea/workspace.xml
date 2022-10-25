@@ -22,19 +22,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="Put experiment files in their own folder. Updated Ensemble\main for the assignment">
-      <change afterPath="$PROJECT_DIR$/EnsembleLearning/Experiments/bagged_trees_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EnsembleLearning/Experiments/rf_data_2.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EnsembleLearning/Experiments/rf_data_4.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EnsembleLearning/Experiments/rf_data_6.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LinearRegression/Data/data-desc.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LinearRegression/Data/test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LinearRegression/Data/train.csv" afterDir="false" />
+    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="Implemented LMS.  Changed main functions. Added comments">
+      <change afterPath="$PROJECT_DIR$/LinearRegression/4a_data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hw2_run.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DecisionTree/decision_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/DecisionTree/decision_tree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DecisionTree/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/DecisionTree/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EnsembleLearning/bagged_trees.py" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/bagged_trees.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EnsembleLearning/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LinearRegression/lms.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearRegression/lms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LinearRegression/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearRegression/main.py" afterDir="false" />
     </list>
@@ -94,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666394435910</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implemented LMS.  Changed main functions. Added comments">
+      <created>1666647122598</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666647122598</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -114,7 +114,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="idk" />
     <MESSAGE value="Put experiment files in their own folder. Updated Ensemble\main for the assignment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Put experiment files in their own folder. Updated Ensemble\main for the assignment" />
+    <MESSAGE value="Implemented LMS.  Changed main functions. Added comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented LMS.  Changed main functions. Added comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -135,34 +136,24 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinearRegression/lms.py</url>
-          <line>33</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/DecisionTree/main.py</url>
           <line>90</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/DecisionTree/decision_tree.py</url>
-          <line>64</line>
+          <line>62</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LinearRegression/lms.py</url>
-          <line>66</line>
+          <line>78</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinearRegression/lms.py</url>
-          <line>51</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinearRegression/lms.py</url>
-          <line>55</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/LinearRegression/main.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

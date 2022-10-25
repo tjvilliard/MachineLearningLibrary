@@ -36,14 +36,15 @@ class AdaBoost:
         #print("Begin boost \n")
         self.tree_boost()
 
-    def predict(self, new_data):
+    def predict(self, new_data, ensemble_size):
+        if ensemble_size > self.num_trees:
+            ensemble_size = self.num_trees
         # only works for +1 -1 classifications
-        t = len(self.stumps)
         final_votes = np.zeros(len(new_data))
 
         # for every stump predict data and scale by amount of say
         # add all vote vectors and sign of each element is prediction
-        for i in range(t):
+        for i in range(ensemble_size):
             stump = self.stumps[i]
             pred = stump.predict(new_data)
             self.votes.append(pred)

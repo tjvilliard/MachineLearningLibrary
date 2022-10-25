@@ -19,25 +19,23 @@ class BaggedTrees:
         num_col = np.shape(data)[1] - 1
 
         # build num_trees and store for prediciton
-        print("building ", num_trees)
         for i in range(num_trees):
             selection = choice(range(len(data)), bag_size, replace=True)
             batch = data[selection]
             tree = DecisionTree(batch, max_depth=num_col, random=self.random, num_attr=self.num_attr,
                                 handle_numeric=True)
             self.trees.append(tree)
-        print(num_trees, " done")
 
-    def predict(self, new_data):
+    def predict(self, new_data, ensemble_size):
         # 2d array of yhat for all trees
         all_predictions = []
 
         # final predictions after vote
         true_predictions = []
 
-        for tree in self.trees:
+        for i in range(ensemble_size):
             # append yhat for each tree to predictions: each row is single tree prediction
-            all_predictions.append(tree.predict(new_data))
+            all_predictions.append(self.trees[i].predict(new_data))
 
         # every entry in transpose(predictions) is set of all predictions for one datapoint
         # take max and append to final pred

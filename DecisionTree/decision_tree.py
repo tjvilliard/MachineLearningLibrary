@@ -48,7 +48,7 @@ class Node:
 
 
 class DecisionTree:
-    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10, handle_numeric=False, random=False):
+    def __init__(self, data, mode="entropy", min_samples=1, max_depth=10, handle_numeric=False, random=False, num_attr=2):
 
         # arbitrary stopping conditions, user set
         self.min_samples = min_samples
@@ -58,12 +58,12 @@ class DecisionTree:
         # method of information gain: entropy, gini, or majority
         self.mode = mode
         self.random = random
-        self.attr_set = choice(range(np.shape(data)[1]-1), 3) if random else range(np.shape(data)[1]-1)
+        self.num_attr = num_attr
 
-        self.depth = 0
-        self.root = self.build_tree(data)
+        num_col = data.shape[1]-1
+        self.root = self.build_tree(data, depth=0, features=list(range(num_col)))
 
-    def build_tree(self, data, depth=0):
+    def build_tree(self, data, depth, features):
         """ recursively builds the tree in place using nodes and subsets of the original dataset"""
 
         # check number of data points
@@ -72,18 +72,23 @@ class DecisionTree:
         # checking arbitrary stopping conditions
         if depth < self.max_depth and num_samples >= self.min_samples:  ####### changed to less than over lequal
             # set split_node to node of best split
-            split_node = self.find_best_split(data)
+            split_node = self.find_best_split(data, features)
 
             # node has no children or node is sorted
+            if split_node.children is None:
+                split_node.is_leaf = True
+                split_node.set_value()
+                return split_node
             if len(split_node.children) == 0 or split_node.info_gain == 0:
                 split_node.is_leaf = True
                 split_node.set_value()
                 return split_node
 
             # node has children
+            features.remove(split_node.split_idx)
             for key in split_node.children.keys():
                 # replace the child data set with child tree
-                split_node.children[key] = self.build_tree(split_node.children[key], depth + 1)
+                split_node.children[key] = self.build_tree(split_node.children[key], depth + 1, features)
 
             return split_node
 
@@ -92,17 +97,20 @@ class DecisionTree:
         node.set_value()
         return node
 
-    def find_best_split(self, data):
+    def find_best_split(self, data, features):
         """Initializes node from data set. Sets node properties according to those that best split the node."""
         node = Node(data=data)
         max_gain = -1  # info gain cannot be negative
 
-        # split the data for each attribute and determine optimal split
-        num_attr = data.shape[1] - 1
-
         # random learner adjustment
+        if self.random and len(features) > self.num_attr:
+            attr_set = choice(features, self.num_attr, replace=False)
+        else:
+            attr_set = features
 
-        for attr_idx in self.attr_set:
+        for attr_idx in attr_set:
+            #if attr_idx in skip_attrs:
+                #continue
             # treat numeric data differently
             numeric_col = False
             threshold = None

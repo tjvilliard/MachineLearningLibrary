@@ -25,32 +25,31 @@ def main():
     x_test, y_test = test[:, :-1], test[:, -1]
 
     # Begin assignment operations
-    #assignment_2a(train, x_train, y_train, x_test, y_test)
+    assignment_2a(train, x_train, y_train, x_test, y_test)
 
     assignment_2b(train, x_train, y_train, x_test, y_test)
 
-    #assignment_2c(train, x_train, y_train, x_test, y_test)
+    assignment_2c(train, x_train, y_train, x_test, y_test)
 
-    #assignment_2d(train, x_train, y_train, x_test, y_test)
+    assignment_2d(train, x_train, y_train, x_test, y_test)
 
 
 def assignment_2a(train, x_train, y_train, x_test, y_test):
     print("Logging AdaBoost Experiment Data...")
     exp = open("Experiments/ada_exp.csv", "w")
 
-    exp.write("t, train, test \n")
+    exp.write("t,train,test\n")
     stump_tr_errors = []
     stump_test_errors = []
     # begin experiment and track data to be logged in csv's
-    for t in range(1, 501):
-
-        ensemble = AdaBoost(train, t)
-
-        train_pred = ensemble.predict(x_train)
+    ensemble = AdaBoost(train, 500)
+    for t in range(500):
+        print(t)
+        train_pred = ensemble.predict(x_train, ensemble_size=t)
         for stump_pred in ensemble.votes:
             stump_tr_errors.append(prediction_error(y_train, stump_pred))
 
-        test_pred = ensemble.predict(x_test)
+        test_pred = ensemble.predict(x_test, ensemble_size=t)
         for stump_pred in ensemble.votes:
             stump_test_errors.append(prediction_error(y_test, stump_pred))
 
@@ -75,12 +74,13 @@ def assignment_2b(train, x_train, y_train, x_test, y_test):
     f = open("Experiments/bagged_trees_data.csv", "w")
     f.write("t, train, test \n")
 
-    for t in range(100, 600, 100):
+    ensemble = BaggedTrees(train, len(train), 500)
+    for t in range(500):
         print(t)
-        ensemble = BaggedTrees(train, len(train), t)
-        train_pred = ensemble.predict(x_train)
-        test_pred = ensemble.predict(x_test)
-        f.write(str(t) + ", " + str(prediction_error(y_train, train_pred)) + ", " + str(
+
+        train_pred = ensemble.predict(x_train, t)
+        test_pred = ensemble.predict(x_test, t)
+        f.write(str(t) + "," + str(prediction_error(y_train, train_pred)) + "," + str(
             prediction_error(y_test, test_pred)) + "\n")
 
     f.close()
@@ -109,10 +109,8 @@ def assignment_2c(train, x_train, y_train, x_test, y_test):
     bagged_tree_test_predictions = []
     for i in range(100):
         single_tree_test_predictions.append(single_trees[i].predict(x_test))
-        single_tree_train_predictions.append(single_trees[i].predict(x_train))
 
-        bagged_tree_train_predictions.append(bagged_trees[i].predict(x_train))
-        bagged_tree_test_predictions.append(bagged_trees[i].predict(x_test))
+        bagged_tree_test_predictions.append(bagged_trees[i].predict(x_test, 500))
 
     pd.DataFrame(single_tree_train_predictions).to_csv("Experiments/single_tree_train_prediction.csv")
     pd.DataFrame(single_tree_test_predictions).to_csv("Experiments/single_tree_test_prediction.csv")
@@ -134,21 +132,20 @@ def assignment_2d(train, x_train, y_train, x_test, y_test):
     rf_6_train_err = []
     rf_6_test_err = []
 
-    for i in range(1,501):
+    rf_2 = BaggedTrees(train, len(train), 500, random=True, num_attr=2)
+    rf_4 = BaggedTrees(train, len(train), 500, random=True, num_attr=4)
+    rf_6 = BaggedTrees(train, len(train), 500, random=True, num_attr=6)
+    for i in range(100,600, 500):
         print(i)
-        rf_2 = BaggedTrees(train, len(train), i, random=True, num_attr=2)
-        rf_4 = BaggedTrees(train, len(train), i, random=True, num_attr=4)
-        rf_6 = BaggedTrees(train, len(train), i, random=True, num_attr=6)
-        print("ensembles complete")
 
-        rf_2_train_err.append(prediction_error(y_train, rf_2.predict(x_train)))
-        rf_2_test_err.append(prediction_error(y_test, rf_2.predict(x_test)))
+        rf_2_train_err.append(prediction_error(y_train, rf_2.predict(x_train, i)))
+        rf_2_test_err.append(prediction_error(y_test, rf_2.predict(x_test, i)))
 
-        rf_4_train_err.append(prediction_error(y_train, rf_4.predict(x_train)))
-        rf_4_test_err.append(prediction_error(y_test, rf_4.predict(x_test)))
+        rf_4_train_err.append(prediction_error(y_train, rf_4.predict(x_train, i)))
+        rf_4_test_err.append(prediction_error(y_test, rf_4.predict(x_test, i)))
 
-        rf_6_train_err.append(prediction_error(y_train, rf_6.predict(x_train)))
-        rf_6_test_err.append(prediction_error(y_test, rf_6.predict(x_test)))
+        rf_6_train_err.append(prediction_error(y_train, rf_6.predict(x_train, i)))
+        rf_6_test_err.append(prediction_error(y_test, rf_6.predict(x_test, i)))
         print("predictions complete")
 
     print("Logging Random Forrest Data...")
@@ -162,9 +159,9 @@ def assignment_2d(train, x_train, y_train, x_test, y_test):
     file3.write("t, train_err, test_err \n")
 
     for t in range(1, 501):
-        file1.write(str(t) + ", " + str(rf_2_train_err[t]) + ", " + str(rf_2_test_err[t]) + "\n")
-        file2.write(str(t) + ", " + str(rf_4_train_err[t]) + ", " + str(rf_4_test_err[t]) + "\n")
-        file3.write(str(t) + ", " + str(rf_6_train_err[t]) + ", " + str(rf_6_test_err[t]) + "\n")
+        file1.write(str(t) + "," + str(rf_2_train_err[t]) + "," + str(rf_2_test_err[t]) + "\n")
+        file2.write(str(t) + "," + str(rf_4_train_err[t]) + "," + str(rf_4_test_err[t]) + "\n")
+        file3.write(str(t) + "," + str(rf_6_train_err[t]) + "," + str(rf_6_test_err[t]) + "\n")
 
     print("Complete: Experiment/rf_data_2.csv, Experiment/rf_data_4.csv, Experiment/rf_data_6.csv")
     return

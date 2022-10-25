@@ -25,13 +25,25 @@ def main():
     x_test, y_test = test[:, :-1], test[:, -1]
 
     # Begin assignment operations
-    assignment_2a(train, x_train, y_train, x_test, y_test)
+    try:
+        assignment_2a(train, x_train, y_train, x_test, y_test)
+    except:
+        print("something went wrong 2a")
 
-    assignment_2b(train, x_train, y_train, x_test, y_test)
+    try:
+        assignment_2b(train, x_train, y_train, x_test, y_test)
+    except:
+        print("something went wrong 2b")
 
-    assignment_2c(train, x_train, y_train, x_test, y_test)
+    try:
+        assignment_2c(train, x_train, y_train, x_test, y_test)
+    except:
+        print("something went wrong 2c")
 
-    assignment_2d(train, x_train, y_train, x_test, y_test)
+    try:
+        assignment_2d(train, x_train, y_train, x_test, y_test)
+    except:
+        print("something went wrong 2d")
 
 
 def assignment_2a(train, x_train, y_train, x_test, y_test):
@@ -158,7 +170,7 @@ def assignment_2d(train, x_train, y_train, x_test, y_test):
     file3 = open("Experiments/rf_data_6.csv", "w")
     file3.write("t, train_err, test_err \n")
 
-    for t in range(1, 501):
+    for t in range(len(rf_2_train_err)):
         file1.write(str(t) + "," + str(rf_2_train_err[t]) + "," + str(rf_2_test_err[t]) + "\n")
         file2.write(str(t) + "," + str(rf_4_train_err[t]) + "," + str(rf_4_test_err[t]) + "\n")
         file3.write(str(t) + "," + str(rf_6_train_err[t]) + "," + str(rf_6_test_err[t]) + "\n")

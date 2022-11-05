@@ -23,15 +23,15 @@ def main():
     max_epochs = 10
 
     # standard perceptron
-    s_perceptron = Perceptron(gamma=r, mode="standard")
     error_rates = []
     for i in range(100):
+        s_perceptron = Perceptron(gamma=r, mode="standard")
         s_perceptron.train(x_train, y_train, t=max_epochs)
         s_perceptron_predictions = s_perceptron.predict(x_test)
         error_rates.append(prediction_error(y_test, s_perceptron_predictions))
 
     print("Standard Perceptron:")
-    print("w = ", s_perceptron.w)
+    print("w of final perceptron = ", s_perceptron.w)
     avg_err = sum(error_rates) / len(error_rates)
     print("Avg Error for 100 Standard Perceptrons: ", avg_err)
     print("\n")
@@ -40,7 +40,7 @@ def main():
     v_perceptron = Perceptron(gamma=r, mode="voted")
     v_perceptron.train(x_train, y_train, t=max_epochs)
     print("Voted Perceptron:")
-    print("w = ", v_perceptron.w[:2], "...", v_perceptron.w[-1])
+    print("[w_i, c_i] = ", v_perceptron.w[:2], "...", v_perceptron.w[-1])
     v_perceptron_predictions = v_perceptron.predict(x_test)
     print("Error: ", prediction_error(y_test, v_perceptron_predictions))
     print("\n")

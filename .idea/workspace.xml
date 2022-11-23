@@ -22,19 +22,25 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="Implemented LMS.  Changed main functions. Added comments">
-      <change afterPath="$PROJECT_DIR$/LinearRegression/4a_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hw2_run.sh" afterDir="false" />
+    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="hw3_run.sh added">
+      <change afterPath="$PROJECT_DIR$/SVM/Data/data-desc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SVM/Data/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SVM/Data/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SVM/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SVM/svm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DecisionTree/decision_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/DecisionTree/decision_tree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EnsembleLearning/bagged_trees.py" beforeDir="false" afterPath="$PROJECT_DIR$/EnsembleLearning/bagged_trees.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LinearRegression/lms.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearRegression/lms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LinearRegression/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearRegression/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,14 +55,24 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Lori/PycharmProjects/MahineLearning/SVM/Data",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\SVM\Data" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\Perceptron\Data" />
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\FinalProject\Data" />
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\LinearRegression\Experiments" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\LinearRegression\Data" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\EnsembleLearning\Experiments" />
     </key>
@@ -94,7 +110,49 @@
       <option name="project" value="LOCAL" />
       <updated>1666647122598</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Improved DecisionTree and random forrest feature selection. Changed how the experiments run. Added run.sh.">
+      <created>1666666954040</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666666954040</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Bugfix">
+      <created>1666667606878</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1666667606878</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Adjusted hw2_run.sh">
+      <created>1666667757948</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1666667757948</updated>
+    </task>
+    <task id="LOCAL-00007" summary="deleted unneccessary files and changed where figures were saved.">
+      <created>1666668043870</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1666668043870</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Implemented all perceptron variants.">
+      <created>1667615773782</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1667615773783</updated>
+    </task>
+    <task id="LOCAL-00009" summary="hw3_run.sh added">
+      <created>1667616163153</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667616163153</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -115,19 +173,25 @@
     <MESSAGE value="idk" />
     <MESSAGE value="Put experiment files in their own folder. Updated Ensemble\main for the assignment" />
     <MESSAGE value="Implemented LMS.  Changed main functions. Added comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented LMS.  Changed main functions. Added comments" />
+    <MESSAGE value="Improved DecisionTree and random forrest feature selection. Changed how the experiments run. Added run.sh." />
+    <MESSAGE value="Bugfix" />
+    <MESSAGE value="Adjusted hw2_run.sh" />
+    <MESSAGE value="deleted unneccessary files and changed where figures were saved." />
+    <MESSAGE value="Implemented all perceptron variants." />
+    <MESSAGE value="hw3_run.sh added" />
+    <option name="LAST_COMMIT_MESSAGE" value="hw3_run.sh added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EnsembleLearning/ada_boost.py</url>
-          <line>65</line>
+          <line>66</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EnsembleLearning/ada_boost.py</url>
-          <line>78</line>
+          <line>79</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -141,11 +205,6 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/DecisionTree/decision_tree.py</url>
-          <line>62</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LinearRegression/lms.py</url>
           <line>78</line>
           <option name="timeStamp" value="43" />
@@ -154,6 +213,41 @@
           <url>file://$PROJECT_DIR$/LinearRegression/main.py</url>
           <line>27</line>
           <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/FinalProject/main.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Perceptron/main.py</url>
+          <line>48</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Perceptron/main.py</url>
+          <line>39</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SVM/svm.py</url>
+          <line>123</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SVM/svm.py</url>
+          <line>159</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SVM/svm.py</url>
+          <line>147</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SVM/svm.py</url>
+          <line>163</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

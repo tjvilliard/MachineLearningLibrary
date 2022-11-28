@@ -19,16 +19,16 @@ def main():
 
     # starting variables
     gamma_0 = .005
-    a = .5
+    a = .005
     C = [100 / 873, 500 / 873, 700 / 873]
     max_epochs = 100
 
-    #assignment_primal(x_train, y_train, x_test, y_test, max_epochs, a, gamma_0, C)
+    assignment_primal(x_train, y_train, x_test, y_test, max_epochs, a, gamma_0, C)
 
     assignment_dual(x_train, y_train, x_test, y_test, C)
 
     gamma = [.1, .5, 1, 5, 100]
-    #assignment_kernel(x_train, y_train, x_test, y_test, gamma, C)
+    assignment_kernel(x_train, y_train, x_test, y_test, gamma, C)
 
 
 def assignment_primal(x_train, y_train, x_test, y_test, max_epochs, a, gamma_0, C):
@@ -92,7 +92,7 @@ def assignment_kernel(x_train, y_train, x_test, y_test, gamma, C):
             print("# support vectors: ", len(svm_gauss.support_vector_idxs))
             if g > 0.1:
                 vec_in_common = set(svm_gauss.support_vector_idxs).intersection(set(prev_support_vec))
-                print("shared sv from prev gamma: \n", vec_in_common)
+                print("shared sv from prev gamma: \n", len(vec_in_common))
             print("\n")
 
             prev_support_vec = svm_gauss.support_vector_idxs

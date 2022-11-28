@@ -22,13 +22,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="hw3_run.sh added">
-      <change afterPath="$PROJECT_DIR$/SVM/Data/data-desc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SVM/Data/test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SVM/Data/train.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SVM/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SVM/svm.py" afterDir="false" />
+    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="Implementation of SVM in all forms completed.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SVM/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/SVM/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667616163153</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Implementation of SVM in all forms completed.">
+      <created>1669232753952</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1669232753953</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -179,7 +182,8 @@
     <MESSAGE value="deleted unneccessary files and changed where figures were saved." />
     <MESSAGE value="Implemented all perceptron variants." />
     <MESSAGE value="hw3_run.sh added" />
-    <option name="LAST_COMMIT_MESSAGE" value="hw3_run.sh added" />
+    <MESSAGE value="Implementation of SVM in all forms completed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementation of SVM in all forms completed." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

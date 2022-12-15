@@ -22,9 +22,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="Implementation of SVM in all forms completed.">
+    <list default="true" id="83e0dd1e-3da5-4f63-a666-e307a0eefa01" name="Default Changelist" comment="run.sh added">
+      <change afterPath="$PROJECT_DIR$/LogisticRegression/logistic_regression.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LogisticRegression/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Data/data-desc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Data/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Data/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/neuralnet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/neuralnet_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/py_torch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SVM/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/SVM/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,20 +65,21 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Lori/PycharmProjects/MahineLearning/SVM/Data",
+    "last_opened_file_path": "C:/Users/Lori/PycharmProjects/MahineLearning/NeuralNetworks/Data",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\NeuralNetworks\Data" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\SVM\Data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\Perceptron\Data" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\FinalProject\Data" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\LinearRegression\Experiments" />
       <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\LinearRegression\Data" />
-      <recent name="C:\Users\Lori\PycharmProjects\MahineLearning\EnsembleLearning\Experiments" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -155,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669232753953</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="run.sh added">
+      <created>1669662867647</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1669662867648</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -183,7 +199,8 @@
     <MESSAGE value="Implemented all perceptron variants." />
     <MESSAGE value="hw3_run.sh added" />
     <MESSAGE value="Implementation of SVM in all forms completed." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementation of SVM in all forms completed." />
+    <MESSAGE value="run.sh added" />
+    <option name="LAST_COMMIT_MESSAGE" value="run.sh added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -252,6 +269,21 @@
           <url>file://$PROJECT_DIR$/SVM/svm.py</url>
           <line>163</line>
           <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/NeuralNetworks/neuralnet_2.py</url>
+          <line>157</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/NeuralNetworks/neuralnet_2.py</url>
+          <line>180</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/NeuralNetworks/neuralnet_2.py</url>
+          <line>175</line>
+          <option name="timeStamp" value="97" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
